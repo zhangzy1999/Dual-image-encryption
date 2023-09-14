@@ -1,0 +1,9 @@
+function F=first_miss_it1(p,a1)
+[M,N]=size(p);
+for i=M*N-1:-1:1
+j=floor(a1(i)*i)+1;
+k=p(i);
+p(i)=p(j);
+p(j)=k;
+end
+F=reshape(p,M,N);
