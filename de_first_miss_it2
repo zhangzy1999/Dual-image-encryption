@@ -1,0 +1,20 @@
+function E=de_first_miss_it2(p,a1)
+
+%p=P;
+%a1=A1;
+%a2=A2;
+
+[M,N]=size(p);
+% 1-费雪耶兹置乱
+
+for i=1:1:M*N-1
+j=floor(a1(i)*i)+1;
+k=p(i);
+p(i)=p(j);
+p(j)=k;
+end
+% % 2-排序置乱
+% [M,N]=size(p);
+% [D C]=sort(a2);
+% f1(C)=p;
+E=reshape(p,M,N);
