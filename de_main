@@ -1,20 +1,15 @@
 clc;
 clear;
-%%RGB_split.m
-
-image = imread('Fj.png');
-imshow('21.png');
-%load sum.mat;
-%%显示原图片
-%%imshow(image)
-
+image = imread('encryption.png');
+imshow('encryption.png');
 R=image(:,:,1);
 G=image(:,:,2);
 B=image(:,:,3);
 J111=double(R);
 J222=double(G);
 J333=double(B);
-
+[M,N]=size(J111);
+k=M*N*3
 
 s7=zeros(1,419*419*3);
 s=1;
@@ -56,7 +51,6 @@ J2=reshape(J22,512,512);
 
 q=double(J1);
 w=double(J2);
-
 P=q;
 P2=w;
 
