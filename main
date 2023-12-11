@@ -25,14 +25,6 @@ end
 end
 P3=double(P1); 
 P4=double(P2);
-sum1=0;
-sum2=0;
-for i=1:M
-    for j =1:N
-        sum1=P3(i,j)+sum1;
-        sum2=P4(i,j)+sum2;
-    end
-end
 E = zeros(M,N);
 F = zeros(M,N);
 for i = 1:2:M
@@ -101,7 +93,6 @@ E=first_miss_it2(E,A1);
 F=first_miss_it1(F,A2);
 E=reshape(E,1,M*N);
 F=reshape(F,1,M*N);
-[D C]=sort(A3);
 for i=1:2:M*N-1
     k=E(1,C(i));
     E(1,C(i))=F(1,C(i+1));
@@ -120,31 +111,11 @@ end
 E1=zeros(M,N);     
 F1=zeros(M,N);
 k=1;
- for i = 1:2:M
+ for i = 1:M
     for j =1:N
-        if mod(j,2)==1
             E1(i,j)=bitxor(E(i,j),s1(k));
             F1(i,j)=bitxor(F(i,j),s2(k));
-        end
-        if mod(j,2)==0
-            E1(i+1,j)=bitxor(E(i+1,j),s1(k));
-            F1(i+1,j)=bitxor(F(i+1,j),s2(k));
-        end
-        k=k+1;
-    end
-end
-for i =M-1:-2:1
-    for m =N:-1:1
-        if mod(m,2)==0
-            E1(i,m)=bitxor(E(i,m),s1(k));
-            F1(i,m)=bitxor(F(i,m),s2(k));
-        end
-        if mod(m,2)==1
-            E1(i+1,m)=bitxor(E(i+1,m),s1(k));
-            F1(i+1,m)=bitxor(F(i+1,m),s2(k));
-        end
-        k=k+1;
-    end
+   end
 end
 J1=uint8(E1);
 imwrite(J1,'a3.png');
@@ -193,27 +164,6 @@ for i=1:k
         s=s+1;
     end
 end
-J111=reshape(q,k,k);
-J222=reshape(w,k,k);
-J333=reshape(e,k,k);
-J111=uint8(J111);
-imwrite(J111,'a3.png');
-figure;
-imshow(uint8(J111));
-J222=uint8(J222);
-imwrite(J222,'a4.png');
-figure;
-imshow(uint8(J222));
-J333=uint8(J333);
-imwrite(J333,'a5.png');
-figure;
-imshow(uint8(J333));
-R=imread('a3.png');
-G=imread('a4.png');
-B=imread('a5.png');
-RGB(:,:,1)=R(:,:,1);
-RGB(:,:,2)=G(:,:,1);
-RGB(:,:,3)=B(:,:,1);
-imwrite(RGB,'encryption.png');
+imwrited('encryption.png');
 figure;
 imshow('encryption.png');
