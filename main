@@ -59,13 +59,13 @@ k5=b(257:320);
 k6=b(321:384);
 k7=b(385:448);
 k8=b(449:512);
-x1=bi2de(k1)/2^64+0.01;
-x2=bi2de(k2)/2^64+0.02;
-x3=bi2de(k3)/2^64+0.03;
-x4=bi2de(k4)/2^64+0.04;
-x5=bi2de(k5)/2^64+0.05;
-x6=bi2de(k6)/2^64+0.06;
-u=0.01+bi2de(bitxor(k7,k8))/2^64;
+x1=bi2de(k1)/2^128;
+x2=bi2de(k2)/2^128;
+x3=bi2de(k3)/2^128;
+x4=bi2de(k4)/2^128;
+x5=bi2de(k5)/2^128;
+x6=bi2de(k6)/2^128;
+u=bi2de(bitxor(k7,k8))/2^128;
 A1=zeros(1,M*N);
 A2=zeros(1,M*N);
 A3=zeros(1,M*N);
@@ -79,12 +79,12 @@ A4(1)=x4;
 A5(1)=x5;
 A6(1)=x5;
 for i=1:M*N-1
-    A1(i+1)=mod(u*tan(pi*A1(i)*(1-A1(i)))*exp(1)^10,1);
-    A2(i+1)=mod(u*tan(pi*A2(i)*(1-A2(i)))*exp(1)^10,1);
-    A3(i+1)=mod(u*tan(pi*A3(i)*(1-A3(i)))*exp(1)^10,1);
-    A4(i+1)=mod(u*tan(pi*A4(i)*(1-A4(i)))*exp(1)^10,1);
-    A5(i+1)=mod(u*tan(pi*A5(i)*(1-A5(i)))*exp(1)^10,1);
-    A6(i+1)=mod(u*tan(pi*A6(i)*(1-A6(i)))*exp(1)^10,1);
+    A1(i+1)=mod(A1(i)*(1-A1(i)))*exp(1)^10,1);
+    A2(i+1)=mod(A2(i)*(1-A2(i)))*exp(1)^10,1);
+    A3(i+1)=mod(A3(i)*(1-A3(i)))*exp(1)^10,1);
+    A4(i+1)=mod(A4(i)*(1-A4(i)))*exp(1)^10,1);
+    A5(i+1)=mod(A5(i)*(1-A5(i)))*exp(1)^10,1);
+    A6(i+1)=mod(A6(i)*(1-A6(i)))*exp(1)^10,1);
 end
 save A1 A1;
 save A2 A2;
@@ -93,7 +93,7 @@ E=first_miss_it2(E,A1);
 F=first_miss_it1(F,A2);
 E=reshape(E,1,M*N);
 F=reshape(F,1,M*N);
-for i=1:2:M*N-1
+for i=1:M*N
     k=E(1,C(i));
     E(1,C(i))=F(1,C(i+1));
     F(1,C(i+1))=k;
@@ -102,11 +102,11 @@ E=reshape(E,M,N);
 F=reshape(F,M,N);
 s1=zeros(1,M*N);
 for i=1:M*N
-    s1(i)=mod(floor(A4(i)*2^14),256);
+    s1(i)=mod(floor(A4(i)*2^16),256);
 end
 s2=zeros(1,M*N);
 for i=1:M*N
-    s2(i)=mod(floor(A5(i)*2^14),256);
+    s2(i)=mod(floor(A5(i)*2^16),256);
 end
 E1=zeros(M,N);     
 F1=zeros(M,N);
@@ -123,9 +123,9 @@ J2=uint8(F1);
 imwrite(J2,'a4.png');
 s6=zeros(1,M*N);
 for i=1:M*N
-    s6(i)=mod(floor(A6(i)*2^14),256);
+    s6(i)=mod(floor(A6(i)*2^16),256);
 end
-k=ceiling((2*M*N)^0.5)
+k=ceiling((M)^1/2)
 J11=reshape(J1,1,M*N);
 J22=reshape(J2,1,M*N);
 s7=zeros(1,k*k*3);
